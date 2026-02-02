@@ -201,7 +201,7 @@ def main():
     parser.add_argument("--reuse_factor", type=int, default=1, help="Reuse each generated graph N times")
     parser.add_argument("--checkpoint_path", type=str, default="last_checkpoint.pt", help="Path to checkpoint")
     parser.add_argument("--grad_checkpoint", action="store_true", help="Enable gradient checkpointing (Saves Memory)")
-    parser.add_argument("--lambda_dag", type=float, default=10.0, help="Weight for DAG structural loss")
+    parser.add_argument("--lambda_dag", type=float, default=30.0, help="Weight for DAG structural loss (increased for better structure learning)")
 
     parser.add_argument("--lambda_h", type=float, default=0.0, help="Weight for Acyclicity loss")
     parser.add_argument("--lambda_sparse", type=float, default=0.0, help="Weight for Sparsity (L1) loss")

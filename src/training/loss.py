@@ -71,12 +71,13 @@ def causal_loss_fn(pred_delta, true_delta, pred_adj, true_adj,
     
 
     
-    # Robust Regression: Huber Loss with Scale Normalization
-    # We normalize by the magnitude of the targets to prevent loss explosion on large deltas.
+    # Robust Regression: Huber Loss with Adaptive Scale Normalization
+    # Normalize by the magnitude of targets to prevent loss explosion on large deltas
+    # CRITICAL FIX: Removed min=1.0 clamp that was preventing learning on small deltas
     with torch.no_grad():
-        # Minimum scale of 1.0 to avoid magnification of small errors and division by zero
-        scale = torch.mean(torch.abs(true_delta))
-        scale = torch.clamp(scale, min=1.0) 
+        # Add small epsilon to avoid division by zero
+        scale = torch.mean(torch.abs(true_delta)) + 1e-6
+        # NO CLAMPING - let the model learn the true scale!
         
     loss_delta = nn.functional.huber_loss(pred_delta / scale, true_delta / scale, delta=1.0)
     
