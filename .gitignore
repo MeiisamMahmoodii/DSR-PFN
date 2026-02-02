@@ -49,8 +49,8 @@ plots/
 *.jpg
 *.pdf
 
-# Data
-data/
+# Data (exclude root-level data directory, NOT src/data source code)
+/data/
 *.npy
 *.npz
 

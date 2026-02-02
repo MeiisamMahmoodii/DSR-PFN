@@ -279,7 +279,7 @@ def main():
         # But separate heads might cause issues if one not used? 
         # Scientist always runs. Engineer always runs.
         # Checkpointing often requires find_unused_parameters=True if implemented weirdly.
-        model = DDP(model, device_ids=[dev_idx], find_unused_parameters=False)
+        model = DDP(model, device_ids=[dev_idx], find_unused_parameters=True)
     
     # 2. Data & Curriculum
     curriculum = CurriculumManager(min_vars=args.min_vars, max_vars=args.max_vars)
